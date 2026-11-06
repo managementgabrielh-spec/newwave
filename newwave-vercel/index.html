@@ -1,0 +1,952 @@
+<title>New Wave</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="New Wave — música electrónica, Tenerife">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;700;800;900&family=Archivo:wght@400;500;600;700&family=Space+Mono:wght@400;700&display=swap">
+<style>
+/* ===== Spotify-premium-style structure (black canvas, huge bold type, pill CTAs,
+   big-radius gradient panels, per-item accent colors) mixed with New Wave branding ===== */
+:root{
+  --bg:#000000; --surface:#121212; --surface2:#1a1a1a; --surface3:#202020;
+  --fg:#ffffff; --muted:#a7a7a7; --accent:#ff5a2b; --accent2:#4a5bff;
+  --on-accent:#0a0a0a;
+  --line:rgba(255,255,255,.13); --shadow:rgba(0,0,0,.6);
+  color-scheme:dark;
+  font-size:16px;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --bg:#ffffff; --surface:#f3f3f5; --surface2:#ececf3; --surface3:#e3e3ee;
+    --fg:#0b0e2c; --muted:#54598c; --accent:#ff5a2b; --accent2:#2b3df0;
+    --on-accent:#0a0a0a;
+    --line:rgba(11,14,44,.13); --shadow:rgba(20,24,60,.14);
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#ffffff; --surface:#f3f3f5; --surface2:#ececf3; --surface3:#e3e3ee;
+  --fg:#0b0e2c; --muted:#54598c; --accent:#ff5a2b; --accent2:#2b3df0;
+  --on-accent:#0a0a0a;
+  --line:rgba(11,14,44,.13); --shadow:rgba(20,24,60,.14);
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html,body{background:var(--bg)}
+body{
+  font-family:'Archivo',system-ui,sans-serif;
+  color:var(--fg);
+  padding-left:max(16px,env(safe-area-inset-left,0px));
+  padding-right:max(16px,env(safe-area-inset-right,0px));
+  overflow-x:hidden;
+}
+.wrap{max-width:1120px;margin:0 auto}
+h1,h2,h3{font-family:'Unbounded',system-ui,sans-serif;text-wrap:balance;margin:0}
+::selection{background:var(--accent);color:#0a0a0a}
+a{color:inherit}
+img{max-width:100%;display:block}
+.eyebrow{
+  font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.18em;
+  text-transform:uppercase;color:var(--accent);margin:0 0 .9rem;
+}
+.muted{color:var(--muted)}
+.section{padding-block:clamp(4rem,9vw,7.5rem)}
+.section-head{max-width:680px;margin-bottom:clamp(2rem,4.5vw,3.2rem)}
+.section-head h2{font-size:clamp(2rem,5.2vw,3.4rem);font-weight:800;line-height:1.02;letter-spacing:-.01em}
+.section-head p{color:var(--muted);font-size:1.05rem;line-height:1.55;margin-top:1rem;max-width:52ch}
+
+/* ---------- pill buttons ---------- */
+.btn{
+  font-family:'Unbounded',sans-serif;font-weight:700;font-size:.92rem;
+  border-radius:999px;padding:.95rem 1.9rem;display:inline-flex;align-items:center;gap:.5rem;
+  cursor:pointer;border:1px solid transparent;transition:transform .18s ease,filter .18s ease;
+  text-decoration:none;white-space:nowrap;
+}
+.btn:hover{transform:scale(1.035)}
+.btn:active{transform:scale(.98)}
+.btn-primary{background:var(--accent);color:var(--on-accent)}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-outline{background:transparent;border-color:var(--fg);color:var(--fg)}
+.btn-outline:hover{border-color:var(--accent);color:var(--accent)}
+.btn-row{display:flex;gap:.85rem;flex-wrap:wrap;margin-top:2rem}
+
+/* ---------- top nav ---------- */
+.topnav{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding-block:.9rem;background:color-mix(in srgb, var(--bg) 85%, transparent);
+  backdrop-filter:blur(10px);border-bottom:1px solid var(--line);
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:39;background:var(--bg)}
+.brand-mark{height:20px;width:auto}
+.brand-mark.light{display:none}
+:root[data-theme="light"] .brand-mark.dark{display:none}
+:root[data-theme="light"] .brand-mark.light{display:block}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]) .brand-mark.dark{display:none}
+  :root:not([data-theme="dark"]) .brand-mark.light{display:block}
+}
+.theme-btn{
+  font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.06em;
+  border:1px solid var(--line);background:transparent;color:var(--muted);
+  padding:.5rem .8rem;border-radius:999px;cursor:pointer;
+}
+.theme-btn:hover{border-color:var(--accent);color:var(--fg)}
+
+/* ---------- hero ---------- */
+.hero{
+  padding-top:clamp(2.6rem,7vw,4.8rem);
+  padding-bottom:clamp(2.6rem,6vw,4.2rem);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:"";position:absolute;inset:-25% -10% auto;height:75%;
+  background:radial-gradient(55% 55% at 72% 15%, color-mix(in srgb, var(--accent2) 32%, transparent), transparent 70%),
+             radial-gradient(42% 42% at 10% 5%, color-mix(in srgb, var(--accent) 24%, transparent), transparent 70%);
+  pointer-events:none;filter:blur(14px);
+}
+/* ---------- intro splash: logo first, almost nothing else ---------- */
+.intro-splash{
+  position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:1.5rem;text-align:center;padding-block:clamp(2rem,6vw,3.5rem) clamp(1.2rem,3vw,2rem);
+}
+.intro-wordmark{height:clamp(26px,5.2vw,42px);width:auto}
+.intro-wordmark.light{display:none}
+:root[data-theme="light"] .intro-wordmark.dark{display:none}
+:root[data-theme="light"] .intro-wordmark.light{display:block}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]) .intro-wordmark.dark{display:none}
+  :root:not([data-theme="dark"]) .intro-wordmark.light{display:block}
+}
+
+.hero-content{position:relative;max-width:700px;margin:0 auto;text-align:center}
+.hero-content .eyebrow{display:block;text-align:center}
+.hero-title{
+  font-size:clamp(2.6rem,8vw,5.2rem);font-weight:900;line-height:.9;letter-spacing:-.015em;
+}
+.hero-title em{font-style:italic;color:var(--accent);display:block}
+.hero-slogan{
+  margin:1.4rem auto 0;font-size:clamp(1.1rem,2.3vw,1.4rem);font-weight:600;
+  font-family:'Unbounded',sans-serif;line-height:1.3;max-width:32ch;color:var(--fg);
+}
+.hero-sub{margin:1rem auto 0;color:var(--muted);max-width:48ch;line-height:1.6;font-size:1rem}
+.btn-row{justify-content:center}
+.hero-meta{
+  margin-top:2.2rem;display:flex;gap:1.8rem;flex-wrap:wrap;justify-content:center;
+  font-family:'Space Mono',monospace;font-size:.76rem;color:var(--muted);
+}
+.hero-meta b{color:var(--fg);display:block;font-size:1.25rem;font-family:'Unbounded',sans-serif;font-weight:800}
+
+.isotipo-stage{
+  position:relative;display:flex;align-items:center;justify-content:center;
+  aspect-ratio:1/1;max-width:210px;margin:0 auto;
+  perspective:1000px;
+}
+.isotipo-stage::before{
+  content:"";position:absolute;inset:0%;border-radius:50%;
+  background:radial-gradient(closest-side, color-mix(in srgb, var(--accent2) 26%, transparent), transparent 72%);
+  filter:blur(22px);pointer-events:none;
+}
+.isotipo-wrap{
+  width:68%;animation:spin3d 14s linear infinite;animation-play-state:running;
+  transform-style:preserve-3d;touch-action:none;cursor:grab;user-select:none;
+  filter:drop-shadow(0 10px 30px var(--shadow));
+}
+.isotipo-wrap:active{cursor:grabbing}
+@keyframes spin3d{from{transform:rotateY(var(--offset,0deg))}to{transform:rotateY(calc(var(--offset,0deg) + 360deg))}}
+.isotipo-wrap img{width:100%;pointer-events:none}
+.isotipo-wrap .dark-img{display:block}
+.isotipo-wrap .light-img{display:none}
+:root[data-theme="light"] .isotipo-wrap .dark-img{display:none}
+:root[data-theme="light"] .isotipo-wrap .light-img{display:block}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]) .isotipo-wrap .dark-img{display:none}
+  :root:not([data-theme="dark"]) .isotipo-wrap .light-img{display:block}
+}
+.drag-hint{
+  font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.1em;
+  text-transform:uppercase;color:var(--muted);white-space:nowrap;margin-top:-.4rem;
+}
+
+/* ---------- mission panel (spotify "daylist"-style big rounded gradient card) ---------- */
+.mission-panel{
+  position:relative;overflow:hidden;border-radius:40px;
+  background:linear-gradient(135deg, var(--accent2), #1b2aa0 55%, var(--accent));
+  padding:clamp(2.2rem,6vw,4.5rem);
+  display:flex;flex-direction:column;align-items:flex-start;gap:1.2rem;
+}
+.mission-panel .ghost-iso{
+  position:absolute;right:clamp(-4rem,-2vw,-1rem);top:50%;transform:translateY(-50%);
+  width:clamp(220px,34vw,420px);opacity:.16;pointer-events:none;filter:brightness(0) invert(1);
+}
+.mission-panel .eyebrow{color:rgba(255,255,255,.85)}
+.mission-quote{
+  font-family:'Unbounded',sans-serif;font-weight:800;color:#fff;
+  font-size:clamp(1.7rem,4.6vw,3.1rem);line-height:1.08;max-width:18ch;position:relative;
+}
+.mission-sub{color:rgba(255,255,255,.88);font-size:1.02rem;line-height:1.6;max-width:50ch;position:relative}
+
+/* ---------- origen ---------- */
+.origin-block{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3rem);align-items:start}
+@media (max-width:760px){.origin-block{grid-template-columns:1fr}}
+.pull{
+  font-family:'Unbounded',sans-serif;font-weight:600;font-size:clamp(1.3rem,2.7vw,1.7rem);
+  line-height:1.35;border-left:3px solid var(--accent);padding-left:1.1rem;
+}
+.stat-row{display:flex;gap:1.6rem;margin-top:2rem;flex-wrap:wrap}
+.stat-chip{
+  font-family:'Space Mono',monospace;font-size:.75rem;color:var(--muted);
+}
+.stat-chip b{display:block;font-family:'Unbounded',sans-serif;font-size:1.3rem;color:var(--fg);font-weight:700}
+.origin-text p{line-height:1.7;color:var(--muted);margin:0 0 1rem}
+.origin-text strong{color:var(--fg)}
+
+/* ---------- concept feature grid (spotify features-row style) ---------- */
+.feature-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem}
+@media (max-width:860px){.feature-grid{grid-template-columns:1fr 1fr}}
+@media (max-width:520px){.feature-grid{grid-template-columns:1fr}}
+.feature-card{
+  border:1px solid var(--line);border-radius:20px;background:var(--surface);
+  padding:1.6rem 1.4rem;cursor:pointer;transition:border-color .22s ease,transform .22s ease,background .22s ease;
+}
+.feature-card:hover{transform:translateY(-4px)}
+.feature-card.active{border-color:var(--accent);background:var(--surface2)}
+.feature-icon{width:2.2rem;height:2.2rem;color:var(--accent);margin-bottom:1rem}
+.feature-card h3{font-size:1.02rem;font-weight:700;line-height:1.25}
+.feature-card p{color:var(--muted);margin-top:.6rem;line-height:1.55;font-size:.88rem}
+.feature-num{
+  font-family:'Space Mono',monospace;font-size:.7rem;color:var(--muted);
+  display:block;margin-bottom:.7rem;letter-spacing:.06em;
+}
+.progress-track{height:3px;background:var(--line);border-radius:999px;margin-top:1.6rem;overflow:hidden}
+.progress-fill{height:100%;width:25%;background:linear-gradient(90deg,var(--accent2),var(--accent));transition:width .35s ease}
+.lineup-note{
+  margin-top:1.6rem;padding:1.1rem 1.3rem;border-radius:16px;
+  background:var(--surface2);border:1px solid var(--line);
+  display:flex;gap:.9rem;align-items:center;flex-wrap:wrap;
+}
+.lineup-note .pill{
+  font-family:'Space Mono',monospace;font-size:.72rem;letter-spacing:.04em;
+  background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:.4rem .8rem;
+}
+
+/* ---------- poster gallery (pricing-card style) ---------- */
+.gallery{
+  display:flex;gap:1.1rem;overflow-x:auto;scroll-snap-type:x mandatory;
+  padding-bottom:1rem;margin:0 -16px;padding-inline:16px;
+  scrollbar-width:thin;
+}
+.gallery::-webkit-scrollbar{height:6px}
+.gallery::-webkit-scrollbar-thumb{background:var(--line);border-radius:999px}
+.poster-card{
+  flex:none;width:220px;scroll-snap-align:start;cursor:pointer;
+  border-radius:20px;overflow:hidden;border:1px solid var(--line);background:var(--surface);
+  transition:transform .25s ease,border-color .25s ease;
+}
+.poster-card:hover,.poster-card.active{transform:translateY(-6px);border-color:var(--accent)}
+.poster-card img{aspect-ratio:4/5;object-fit:cover;width:100%}
+.poster-meta{padding:.8rem .9rem 1rem}
+.poster-badge{
+  display:inline-block;font-family:'Space Mono',monospace;font-size:.66rem;font-weight:700;
+  padding:.3rem .6rem;border-radius:999px;background:var(--accent2);color:#fff;margin-bottom:.5rem;
+}
+.poster-card.special .poster-badge{background:var(--accent)}
+.poster-meta .tag{display:block;font-size:.8rem;font-weight:700;font-family:'Unbounded',sans-serif}
+.poster-detail{
+  margin-top:1.4rem;border:1px solid var(--line);border-radius:20px;background:var(--surface2);
+  padding:1.4rem 1.6rem;display:flex;gap:1rem;justify-content:space-between;align-items:center;flex-wrap:wrap;
+}
+.poster-detail .edtitle{font-family:'Unbounded',sans-serif;font-weight:700}
+.poster-detail .eddesc{color:var(--muted);font-size:.92rem;margin-top:.3rem;max-width:48ch}
+.poster-detail .edtag{
+  font-family:'Space Mono',monospace;font-size:.72rem;padding:.45rem .8rem;border-radius:999px;
+  border:1px solid var(--line);white-space:nowrap;
+}
+.edtag.special{color:var(--accent);border-color:var(--accent)}
+
+/* ---------- team ---------- */
+.team-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem}
+@media (max-width:620px){.team-grid{grid-template-columns:1fr}}
+.team-card{
+  border:1px solid var(--line);border-radius:20px;background:var(--surface);padding:1.6rem;
+  position:relative;overflow:hidden;
+}
+.team-card .role{font-family:'Space Mono',monospace;font-size:.72rem;color:var(--accent);letter-spacing:.06em;text-transform:uppercase}
+.team-card h3{font-size:1.5rem;margin-top:.4rem}
+.team-card p{color:var(--muted);margin-top:.6rem;line-height:1.6;font-size:.92rem}
+.team-note{margin-top:1.2rem;color:var(--muted);font-size:.88rem;max-width:60ch}
+
+/* ---------- winners ---------- */
+#winnerDetail{flex-direction:column;align-items:center;text-align:center;padding:1.8rem 1.6rem 2rem}
+#winnerDetail img{border-radius:18px;width:min(100%,260px);height:auto;object-fit:cover;margin:0 auto}
+#winnerDetail .edtitle{font-size:1.3rem;margin-top:1.2rem;display:block}
+#winnerDetail .eddesc{margin-top:.4rem;font-size:.82rem;max-width:40ch}
+.winners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:.8rem}
+.winner-card{
+  border-radius:18px;padding:1rem 1.1rem;cursor:pointer;
+  background:var(--surface);border:1px solid var(--line);
+  transition:transform .2s ease,border-color .2s ease;
+}
+.winner-card:nth-child(odd){background:color-mix(in srgb, var(--accent2) 16%, var(--surface))}
+.winner-card:nth-child(even){background:color-mix(in srgb, var(--accent) 14%, var(--surface))}
+.winner-card:hover{transform:translateY(-3px);border-color:var(--fg)}
+.winner-card.active{border-color:var(--accent)}
+.winner-avatar{
+  width:2.6rem;height:2.6rem;border-radius:50%;background:var(--surface3);
+  display:flex;align-items:center;justify-content:center;margin-bottom:.7rem;
+  font-family:'Unbounded',sans-serif;font-weight:800;font-size:.9rem;
+  background-size:cover;background-position:center;
+}
+.winner-card .wname{font-family:'Unbounded',sans-serif;font-weight:700;font-size:.92rem;display:block}
+.winner-card .wtag{display:block;margin-top:.25rem;font-family:'Space Mono',monospace;font-size:.66rem;color:var(--muted)}
+
+/* ---------- data / stats ---------- */
+.stat-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:.8rem;margin-bottom:2.6rem}
+@media (max-width:860px){.stat-grid{grid-template-columns:repeat(2,1fr)}}
+.stat-tile{border:1px solid var(--line);border-radius:18px;background:var(--surface);padding:1.3rem 1.1rem}
+.stat-tile .num{
+  font-family:'Unbounded',sans-serif;font-weight:800;font-size:clamp(1.35rem,2.6vw,1.8rem);
+  font-variant-numeric:tabular-nums;
+}
+.stat-tile:nth-child(odd) .num{color:var(--accent)}
+.stat-tile:nth-child(even) .num{color:var(--accent2)}
+.stat-tile .lbl{display:block;margin-top:.35rem;color:var(--muted);font-size:.78rem;line-height:1.3}
+
+.chart-block{
+  border:1px solid var(--line);border-radius:20px;background:var(--surface);
+  padding:1.6rem 1.4rem 1.1rem;margin-bottom:1.3rem;
+}
+.chart-block h4{font-family:'Unbounded',sans-serif;font-size:1.05rem;font-weight:700}
+.chart-block .chart-sub{color:var(--muted);font-size:.82rem;margin-top:.25rem}
+.chart-svg{width:100%;height:auto;margin-top:.9rem;overflow:visible}
+.bar{fill:var(--accent2)}
+.bar.hot{fill:var(--accent)}
+.bar-label,.axis-label{font-family:'Space Mono',monospace;font-size:9px;fill:var(--muted)}
+.bar-value{font-family:'Space Mono',monospace;font-size:10px;fill:var(--fg)}
+.line-path{fill:none;stroke:var(--accent);stroke-width:2.6;stroke-linecap:round;stroke-linejoin:round}
+.area-path{fill:url(#areaGrad);opacity:.5}
+.dot{fill:var(--bg);stroke:var(--accent);stroke-width:2}
+.dot:hover,.dot.active{fill:var(--accent)}
+.gridline{stroke:var(--line);stroke-width:1}
+.tooltip{
+  position:absolute;pointer-events:none;background:var(--surface3);border:1px solid var(--line);
+  border-radius:10px;padding:.4rem .6rem;font-family:'Space Mono',monospace;font-size:.72rem;
+  color:var(--fg);transform:translate(-50%,-115%);white-space:nowrap;opacity:0;transition:opacity .12s ease;z-index:5;
+}
+.tooltip.show{opacity:1}
+.chart-wrap{position:relative}
+
+/* ---------- identity ---------- */
+.identity-panel{
+  border-radius:32px;background:var(--surface);border:1px solid var(--line);
+  padding:clamp(1.8rem,4vw,3rem);
+}
+.identity-grid{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(1.5rem,4vw,3rem);align-items:center}
+@media (max-width:760px){.identity-grid{grid-template-columns:1fr}}
+.identity-stage{
+  display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;max-width:280px;margin:0 auto;
+  border-radius:24px;background:var(--surface2);border:1px solid var(--line);position:relative;cursor:pointer;
+}
+.identity-stage img{width:46%;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.identity-stage.flip img{transform:rotateY(180deg)}
+.identity-stage .tag{
+  position:absolute;bottom:.9rem;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono',monospace;font-size:.68rem;letter-spacing:.08em;color:var(--muted);
+}
+.swatches{display:flex;gap:.7rem;margin-top:1.5rem}
+.swatch{
+  width:3rem;height:3rem;border-radius:50%;border:1px solid var(--line);cursor:pointer;
+  position:relative;flex:none;
+}
+.swatch::after{
+  content:attr(data-hex);position:absolute;top:115%;left:50%;transform:translateX(-50%);
+  font-family:'Space Mono',monospace;font-size:.65rem;color:var(--muted);white-space:nowrap;opacity:0;transition:opacity .2s;
+}
+.swatch:hover::after{opacity:1}
+.swatch.copied::after{content:"copiado";color:var(--accent);opacity:1}
+
+/* ---------- future ---------- */
+.future-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:clamp(1.5rem,4vw,2.5rem);align-items:start}
+@media (max-width:760px){.future-grid{grid-template-columns:1fr}}
+.lab-card{
+  border:1px solid var(--line);border-radius:24px;padding:1.8rem;
+  background:linear-gradient(155deg, var(--surface2), var(--surface));
+  position:relative;overflow:hidden;
+}
+.lab-card .dot-pulse{
+  width:.5rem;height:.5rem;border-radius:50%;background:var(--accent);display:inline-block;margin-right:.5rem;
+  animation:pulse 1.8s ease-in-out infinite;
+}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 55%, transparent)}50%{opacity:.6;box-shadow:0 0 0 8px transparent}}
+.lab-card .tagline{
+  font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);
+  display:flex;align-items:center;margin-bottom:.9rem;
+}
+.lab-card h3{font-size:1.6rem}
+.lab-card p{color:var(--muted);margin-top:.7rem;line-height:1.6;font-size:.94rem}
+
+/* ---------- footer (spotify multi-column style) ---------- */
+footer{border-top:1px solid var(--line);padding-block:3rem}
+.footer-top{display:flex;justify-content:space-between;gap:2rem;flex-wrap:wrap}
+.footer-brand{max-width:26ch}
+.footer-brand img{height:22px;margin-bottom:1rem}
+.footer-brand p{color:var(--muted);font-size:.92rem;line-height:1.5}
+.footer-cols{display:flex;gap:3.5rem;flex-wrap:wrap}
+.footer-col h5{
+  font-family:'Space Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--muted);margin-bottom:1rem;
+}
+.footer-col a,.footer-col span{
+  display:block;color:var(--fg);text-decoration:none;font-size:.92rem;margin-bottom:.7rem;
+}
+.footer-col a:hover{color:var(--accent)}
+.footer-bottom{
+  margin-top:2.6rem;padding-top:1.6rem;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+  color:var(--muted);font-size:.82rem;
+}
+
+@media(prefers-reduced-motion:reduce){
+  .isotipo-wrap{animation:none}
+  .lab-card .dot-pulse{animation:none}
+  *{transition-duration:.01ms!important}
+}
+</style>
+
+<nav class="topnav">
+  <div class="wrap" style="display:flex;align-items:center;justify-content:space-between;width:100%">
+    <img class="brand-mark dark" src="brand/logo-dark.png" alt="New Wave">
+    <img class="brand-mark light" src="brand/logo-light.png" alt="New Wave">
+    <button class="theme-btn" id="themeBtn" type="button">MODO · AUTO</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="intro-splash">
+      <div class="isotipo-stage">
+        <div class="isotipo-wrap" id="isotipo">
+          <img class="dark-img" src="brand/isotipo-dark.png" alt="Isotipo New Wave" draggable="false">
+          <img class="light-img" src="brand/isotipo-light.png" alt="Isotipo New Wave" draggable="false">
+        </div>
+      </div>
+      <img class="intro-wordmark dark-img" src="brand/logo-dark.png" alt="New Wave">
+      <img class="intro-wordmark light-img" src="brand/logo-light.png" alt="New Wave">
+      <span class="drag-hint">arrástralo →</span>
+    </div>
+    <div class="hero-content">
+      <p class="eyebrow">Tenerife · Música electrónica</p>
+      <h1 class="hero-title">La nueva ola<br><em>de artistas emergentes</em></h1>
+      <p class="hero-slogan">Porque la música no tiene dueños, tiene futuro.</p>
+      <p class="hero-sub">La plataforma que da a artistas emergentes su primer escenario en un club — desde quien nunca ha pinchado hasta quien lleva años soñando con hacerlo.</p>
+      <div class="btn-row">
+        <a href="#ediciones" class="btn btn-primary">Ver ediciones</a>
+        <a href="#origen" class="btn btn-outline">Nuestra historia</a>
+      </div>
+      <div class="hero-meta">
+        <div><b>2025</b>Año de origen</div>
+        <div><b>8</b>Ediciones</div>
+        <div><b>7</b>Artistas lanzados</div>
+        <div><b>Bulan</b>Social Club</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section style="padding-top:clamp(1rem,3vw,2rem)">
+    <div class="mission-panel">
+      <img class="ghost-iso" src="brand/isotipo-dark.png" alt="">
+      <p class="eyebrow">La idea</p>
+      <p class="mission-quote">Porque la música no tiene dueños, tiene futuro.</p>
+      <p class="mission-sub">Nuestro eslogan es también nuestra misión: dar visibilidad real a artistas emergentes de la escena electrónica, sin importar edad ni experiencia. Empezamos aquí, pero la idea va mucho más allá: queremos llevar New Wave a toda Canarias y, más adelante, al resto de España.</p>
+    </div>
+  </section>
+
+  <section class="section" id="origen">
+    <div class="section-head">
+      <p class="eyebrow">01 · Origen</p>
+      <h2>La chispa que faltaba</h2>
+    </div>
+    <div class="origin-block">
+      <p class="pull">"Si quieres pinchar, móntate tu propia marca." — lo que le dijeron a Gabri cuando empezaba.</p>
+      <div class="origin-text">
+        <p>New Wave lo fundan en 2025 <strong>Gabriel "Gabri"</strong>, DJ, y <strong>Elisa</strong>, en Tenerife. La idea nace de esa frase: Gabri se montó su propia marca, pero al ver de cerca cómo funciona la industria local —sin apenas oportunidades para quien empieza— decidió ir más allá.</p>
+        <p>New Wave existe para resolver ese vacío: un espacio pensado para que artistas nuevos de música electrónica, <strong>de cualquier edad</strong>, pinchen por primera vez en un club.</p>
+        <p class="eyebrow" style="margin-top:2rem;margin-bottom:.8rem">Géneros y subgéneros que nos representan</p>
+        <div class="stat-row" style="margin-top:0">
+          <div class="stat-chip"><b>House</b></div>
+          <div class="stat-chip"><b>Tech House</b></div>
+          <div class="stat-chip"><b>Minimal</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="concepto">
+    <div class="section-head">
+      <p class="eyebrow">02 · Concepto</p>
+      <h2>Cómo nace un ganador</h2>
+      <p>Lo único que hace New Wave es esto: abrir una puerta a artistas que nunca han pinchado en un club. Así se elige a quien la cruza — toca cada paso.</p>
+    </div>
+    <div class="feature-grid" id="steps">
+      <div class="feature-card active" data-step="1">
+        <span class="feature-num">PASO 1</span>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11v2a2 2 0 0 0 2 2h1l3 5 2-1-2.5-4H9l9-4V7L9 3H6a2 2 0 0 0-2 2v2"/><path d="M14 5.5v7"/></svg>
+        <h3>Convocatoria abierta</h3>
+        <p>Cualquier DJ puede enviar su sesión. No hace falta experiencia previa en clubs.</p>
+      </div>
+      <div class="feature-card" data-step="2">
+        <span class="feature-num">PASO 2</span>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v18M5 7l-3 6a3 3 0 0 0 6 0l-3-6ZM19 7l-3 6a3 3 0 0 0 6 0l-3-6ZM5 7h14M9 21h6"/></svg>
+        <h3>Evaluación</h3>
+        <p>Puntuamos por separado la selección musical y la técnica de cada sesión, y sacamos una media.</p>
+      </div>
+      <div class="feature-card" data-step="3">
+        <span class="feature-num">PASO 3</span>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+        <h3>Cuatro finalistas</h3>
+        <p>Las cuatro sesiones mejor valoradas pasan a la fase final. Ya decide el público.</p>
+      </div>
+      <div class="feature-card" data-step="4">
+        <span class="feature-num">PASO 4</span>
+        <svg class="feature-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>
+        <h3>Votación · 24h</h3>
+        <p>Votación pública en Stories de Instagram. Gana quien más votos recibe y debuta.</p>
+      </div>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+    <div class="lineup-note">
+      <span class="pill">Residente</span><span class="muted">+</span><span class="pill">Ganador del concurso</span><span class="muted">+</span><span class="pill">DJ invitado</span>
+      <span class="muted" style="margin-left:auto;font-size:.85rem">El line-up tipo de cada edición de New Wave.</span>
+    </div>
+  </section>
+
+  <section class="section" id="ediciones">
+    <div class="section-head">
+      <p class="eyebrow">03 · Ediciones</p>
+      <h2>8 noches, 8 nuevos artistas</h2>
+      <p>La cronología de New Wave, noche a noche: cada cartel es una edición distinta, con su propio ganador y su propia historia. Toca una para ver qué pasó esa noche.</p>
+    </div>
+    <div class="gallery" id="gallery">
+      <!-- poster cards injected by JS -->
+    </div>
+    <div class="poster-detail" id="posterDetail"></div>
+  </section>
+
+  <section class="section" id="equipo">
+    <div class="section-head">
+      <p class="eyebrow">04 · Equipo</p>
+      <h2>Un proyecto de todos</h2>
+      <p>El equipo de New Wave no se limita a quien lo dirige: lo forman también cada DJ invitado y cada ganador del concurso que ha subido a nuestro escenario. Sin ellos, nada de esto tendría sentido.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card">
+        <span class="role">Dirección · DJ</span>
+        <h3>Gabri</h3>
+        <p>Pincha en todas las ediciones y lleva la curaduría musical: escucha cada sesión que llega al concurso y arma cada cartel.</p>
+      </div>
+      <div class="team-card">
+        <span class="role">Dirección</span>
+        <h3>Elisa</h3>
+        <p>Cofundadora de New Wave desde el primer cartel, parte activa en la evaluación de las sesiones del concurso.</p>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top:2.8rem">
+      <p class="eyebrow">Nuestros ganadores</p>
+      <h2 style="font-size:1.5rem">Los 7 ganadores hasta ahora</h2>
+    </div>
+    <div class="winners-grid" id="winnersGrid">
+      <!-- winner cards injected by JS -->
+    </div>
+    <div class="poster-detail" id="winnerDetail" style="display:none"></div>
+  </section>
+
+  <section class="section" id="datos">
+    <div class="section-head">
+      <p class="eyebrow">05 · Alcance</p>
+      <h2>El pulso del proyecto</h2>
+      <p>Datos oficiales de Instagram, octubre 2025 – noviembre 2026.</p>
+    </div>
+
+    <div class="stat-grid">
+      <div class="stat-tile"><span class="num" data-count="674">0</span><span class="lbl">Seguidores nuevos</span></div>
+      <div class="stat-tile"><span class="num" data-count="713714">0</span><span class="lbl">Visualizaciones</span></div>
+      <div class="stat-tile"><span class="num" data-count="16318">0</span><span class="lbl">Interacciones</span></div>
+      <div class="stat-tile"><span class="num" data-count="25145">0</span><span class="lbl">Visitas al perfil</span></div>
+      <div class="stat-tile"><span class="num" data-count="278">0</span><span class="lbl">Clics en el enlace</span></div>
+    </div>
+
+    <div class="chart-block">
+      <h4>Votos en la encuesta de Instagram, por concurso</h4>
+      <p class="chart-sub">9.137 votos acumulados en 7 concursos — el séptimo, récord absoluto</p>
+      <div class="chart-wrap">
+        <svg class="chart-svg" viewBox="0 0 640 300" id="barChart" aria-label="Votos por concurso">
+          <line class="gridline" x1="40" y1="260" x2="600" y2="260"></line>
+          <!-- bars injected by JS -->
+        </svg>
+        <div class="tooltip" id="barTip"></div>
+      </div>
+    </div>
+
+    <div class="chart-block">
+      <h4>Visualizaciones de contenido por mes</h4>
+      <p class="chart-sub">Los picos coinciden con la votación de 24h de cada concurso</p>
+      <div class="chart-wrap">
+        <svg class="chart-svg" viewBox="0 0 640 230" id="lineChart" aria-label="Visualizaciones mensuales">
+          <defs>
+            <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stop-color="var(--accent)" stop-opacity=".55"/>
+              <stop offset="100%" stop-color="var(--accent)" stop-opacity="0"/>
+            </linearGradient>
+          </defs>
+          <line class="gridline" x1="40" y1="200" x2="600" y2="200"></line>
+          <path class="area-path" d="M40,26 L86.7,77.1 L133.3,131.1 L180,109 L226.7,169.8 L273.3,131.7 L320,110 L366.7,173.4 L413.3,91.8 L460,179.2 L506.7,86.7 L553.3,168.5 L600,157.7 L600,200 L40,200 Z"></path>
+          <path class="line-path" d="M40,26 L86.7,77.1 L133.3,131.1 L180,109 L226.7,169.8 L273.3,131.7 L320,110 L366.7,173.4 L413.3,91.8 L460,179.2 L506.7,86.7 L553.3,168.5 L600,157.7"></path>
+          <!-- dots + labels injected by JS -->
+        </svg>
+        <div class="tooltip" id="lineTip"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="identidad">
+    <div class="section-head">
+      <p class="eyebrow">06 · Identidad</p>
+      <h2>El ADN de la marca</h2>
+      <p>New Wave: la nueva ola de artistas que está por llegar. Toca el isotipo.</p>
+    </div>
+    <div class="identity-panel">
+      <div class="identity-grid">
+        <div class="identity-stage" id="identityStage">
+          <img class="dark-img" src="brand/isotipo-dark.png" alt="Isotipo New Wave">
+          <span class="tag">toca para girar</span>
+        </div>
+        <div>
+          <p style="color:var(--muted);line-height:1.7">El trazo continuo en zigzag representa un <strong style="color:var(--fg)">ADN</strong>: algo que persiste en cada artista y nunca se pierde, por mucho que cambie el contexto a su alrededor. Esa misma idea guía cada cartel — el isotipo y el logo se mantienen siempre, pero cada edición se viste con una temática distinta.</p>
+          <p style="color:var(--muted);line-height:1.7;margin-top:1rem">Dos colores sostienen esa identidad en cada edición, pase lo que pase con el tema visual:</p>
+          <div class="swatches">
+            <div class="swatch copyable" style="background:#1b2aa0" data-hex="#1B2AA0"></div>
+            <div class="swatch copyable" style="background:#ff5a2b" data-hex="#FF5A2B"></div>
+            <div class="swatch copyable" style="background:#000000;border-color:var(--line)" data-hex="#000000"></div>
+            <div class="swatch copyable" style="background:#ffffff;border-color:var(--line)" data-hex="#FFFFFF"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="futuro">
+    <div class="section-head">
+      <p class="eyebrow">07 · Futuro</p>
+      <h2>Lo que viene</h2>
+    </div>
+    <div class="future-grid">
+      <p style="color:var(--muted);line-height:1.75;font-size:1.05rem">El objetivo a medio plazo de New Wave es convertirse en <strong style="color:var(--fg)">la referencia principal para cualquier DJ de música electrónica que esté empezando en las islas</strong>: crecer en número de ediciones, en alcance y en oportunidades reales para quienes participan.</p>
+      <div class="lab-card">
+        <span class="tagline"><span class="dot-pulse"></span>Próximamente</span>
+        <h3>New Wave Lab</h3>
+        <p>Dentro de New Wave se está cocinando un nuevo proyecto, muy enfocado en la formación, las masterclasses y, sobre todo, en la cultura de la música electrónica — para seguir dando apoyo real a los nuevos DJs y músicos que lo necesitan.</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <img class="dark-img" src="brand/logo-dark.png" alt="New Wave">
+        <p>Porque la música no tiene dueños, tiene futuro.</p>
+      </div>
+      <div class="footer-cols">
+        <div class="footer-col">
+          <h5>Proyecto</h5>
+          <a href="#origen">Origen</a>
+          <a href="#concepto">Concepto</a>
+          <a href="#ediciones">Ediciones</a>
+          <a href="#equipo">Equipo</a>
+        </div>
+        <div class="footer-col">
+          <h5>Edición actual</h5>
+          <span>Bulan Social Club</span>
+          <span>Santa Cruz de Tenerife</span>
+          <span>House · Tech House · Minimal</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>New Wave · 8 ediciones · 2025–2026</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  /* ---------- theme toggle ---------- */
+  var root = document.documentElement;
+  var themeBtn = document.getElementById('themeBtn');
+  function applyThemeLabel(){
+    var t = root.getAttribute('data-theme');
+    themeBtn.textContent = 'MODO · ' + (t === 'dark' ? 'OSCURO' : t === 'light' ? 'CLARO' : 'AUTO');
+  }
+  try {
+    var saved = localStorage.getItem('nw-theme');
+    if(saved){ root.setAttribute('data-theme', saved); }
+  } catch(e){}
+  applyThemeLabel();
+  themeBtn.addEventListener('click', function(){
+    var cur = root.getAttribute('data-theme');
+    var next = cur === 'dark' ? 'light' : cur === 'light' ? null : 'dark';
+    if(next){ root.setAttribute('data-theme', next); } else { root.removeAttribute('data-theme'); }
+    try { next ? localStorage.setItem('nw-theme', next) : localStorage.removeItem('nw-theme'); } catch(e){}
+    applyThemeLabel();
+  });
+
+  /* ---------- isotipo drag-to-rotate (true 3D, rotateY on its own vertical axis) ---------- */
+  var iso = document.getElementById('isotipo');
+  var dragging = false, lastX = 0, currentDeg = 0;
+  function pointerX(e){ return e.clientX !== undefined ? e.clientX : e.touches[0].clientX; }
+  function onDown(e){
+    dragging = true;
+    iso.style.animation = 'none';
+    lastX = pointerX(e);
+    iso.setPointerCapture && e.pointerId !== undefined && iso.setPointerCapture(e.pointerId);
+  }
+  function onMove(e){
+    if(!dragging) return;
+    var x = pointerX(e);
+    currentDeg += (x - lastX) * 0.6;
+    lastX = x;
+    iso.style.transform = 'rotateY(' + currentDeg + 'deg)';
+  }
+  function onUp(){
+    if(!dragging) return;
+    dragging = false;
+    iso.style.setProperty('--offset', currentDeg + 'deg');
+    iso.style.transform = '';
+    iso.style.animation = 'spin3d 14s linear infinite';
+  }
+  iso.addEventListener('pointerdown', onDown);
+  window.addEventListener('pointermove', onMove);
+  window.addEventListener('pointerup', onUp);
+  iso.addEventListener('touchstart', onDown, {passive:true});
+  window.addEventListener('touchmove', onMove, {passive:true});
+  window.addEventListener('touchend', onUp);
+
+  /* ---------- feature steps (grid, click = active + progress) ---------- */
+  var progressFill = document.getElementById('progressFill');
+  document.querySelectorAll('.feature-card').forEach(function(card){
+    card.addEventListener('click', function(){
+      document.querySelectorAll('.feature-card').forEach(function(c){ c.classList.remove('active'); });
+      card.classList.add('active');
+      var step = parseInt(card.dataset.step, 10);
+      progressFill.style.width = (step/4*100) + '%';
+    });
+  });
+
+  /* ---------- posters ---------- */
+  var posters = [
+    {file:'posters/p01-17102025.jpg', date:'17.10.25', title:'Primera edición', tag:'Concurso', desc:'El cartel que lo empezó todo. New Wave debuta en Bulan Social Club.'},
+    {file:'posters/p02-07122025.jpg', date:'07.12.25', title:'Edición 2', tag:'Concurso', desc:'Segunda cita del proyecto, segundo ganador del concurso.'},
+    {file:'posters/p03-16012026.jpg', date:'16.01.26', title:'Edición 3', tag:'Concurso', desc:'El isotipo, esta vez reconstruido como circuito de neón.'},
+    {file:'posters/p04-21032026.jpg', date:'21.03.26', title:'Edición 4', tag:'Concurso', desc:'Cuarta edición del proyecto: nuevo concurso, nuevo ganador y una noche más en la cronología de New Wave.'},
+    {file:'posters/p05-24042026.jpg', date:'24.04.26', title:'Edición 5', tag:'Concurso', desc:'Quinta edición del proyecto, nuevo concurso y nuevo ganador en Bulan Social Club.'},
+    {file:'posters/p06-19062026.jpg', date:'19.06.26', title:'Summer Opening', tag:'Concurso', desc:'Edición especial de verano. Ganador: Deiss. Invitado: Alex Wellmann.'},
+    {file:'posters/p07-21082026.jpg', date:'21.08.26', title:'Edición 7', tag:'Concurso', desc:'El concurso más votado hasta la fecha: 1.860 votos en Stories.'},
+    {file:'posters/p08-16102026.jpg', date:'16.10.26', title:'Birthday Gabri and Friends', tag:'Especial · sin concurso', desc:'La última edición: el cumpleaños de Gabri, con muchos DJs invitados para dar más proyección al proyecto.', special:true}
+  ];
+  var gallery = document.getElementById('gallery');
+  var detail = document.getElementById('posterDetail');
+  posters.forEach(function(p, i){
+    var card = document.createElement('div');
+    card.className = 'poster-card' + (p.special ? ' special' : '');
+    card.innerHTML = '<img src="'+p.file+'" alt="Cartel New Wave '+p.date+'" loading="lazy">' +
+      '<div class="poster-meta"><span class="poster-badge">'+p.date+'</span><span class="tag">'+p.title+'</span></div>';
+    card.addEventListener('click', function(){ selectPoster(i); });
+    gallery.appendChild(card);
+  });
+  function selectPoster(i){
+    var p = posters[i];
+    document.querySelectorAll('.poster-card').forEach(function(c,ci){ c.classList.toggle('active', ci===i); });
+    detail.innerHTML =
+      '<div><span class="edtitle">'+p.title+' · '+p.date+'</span><p class="eddesc">'+p.desc+'</p></div>' +
+      '<span class="edtag'+(p.special?' special':'')+'">'+p.tag+'</span>';
+  }
+  selectPoster(0);
+
+  /* ---------- winners ---------- */
+  var winners = [
+    {name:'Guille Alonso', date:'17.10.25', edition:'Edición 1', photo:'winners/guille-alonso.jpg', photoFull:'winners-full/guille-alonso.jpg'},
+    {name:'Bayryz', date:'07.12.25', edition:'Edición 2', photo:'winners/bayryz.jpg', photoFull:'winners-full/bayryz.jpg'},
+    {name:'DJ Lío', date:'16.01.26', edition:'Edición 3', photo:'winners/dj-lio.jpg', photoFull:'winners-full/dj-lio.jpg'},
+    {name:'Aitor Llarena', date:'21.03.26', edition:'Edición 4', photo:'winners/aitor-llarena.jpg', photoFull:'winners-full/aitor-llarena.jpg'},
+    {name:'Rubén Raveloa', date:'24.04.26', edition:'Edición 5', photo:'winners/ruben-raveloa.jpg', photoFull:'winners-full/ruben-raveloa.jpg'},
+    {name:'Deiss', date:'19.06.26', edition:'Summer Opening', photo:'winners/deiss.jpg', photoFull:'winners-full/deiss.jpg'},
+    {name:'Kavy JR', date:'21.08.26', edition:'Edición 7', photo:'winners/kavy-jr.jpg', photoFull:'winners-full/kavy-jr.jpg'}
+  ];
+  var winnersGrid = document.getElementById('winnersGrid');
+  var winnerDetail = document.getElementById('winnerDetail');
+  function editionPhrase(w){
+    var m = w.edition && w.edition.match(/^Edición (\d+)$/);
+    return m ? ('la edición número '+m[1]) : ('la '+w.edition);
+  }
+  winners.forEach(function(w,i){
+    var card = document.createElement('div');
+    card.className = 'winner-card';
+    var initial = w.name.replace(/^DJ\s+/i,'').charAt(0).toUpperCase();
+    var avatarStyle = w.photo ? ' style="background-image:url(\''+w.photo+'\')"' : '';
+    card.innerHTML = '<div class="winner-avatar"'+avatarStyle+'>'+(w.photo?'':'<span>'+initial+'</span>')+'</div>' +
+      '<span class="wname">'+w.name+'</span>' +
+      '<span class="wtag">'+(w.date ? ('Ganador · '+w.date+(w.edition?' · '+w.edition:'')) : 'Ganador del concurso')+'</span>';
+    card.addEventListener('click', function(){ selectWinner(i); });
+    winnersGrid.appendChild(card);
+  });
+  function selectWinner(i){
+    var w = winners[i];
+    document.querySelectorAll('.winner-card').forEach(function(c,ci){ c.classList.toggle('active', ci===i); });
+    winnerDetail.style.display = 'flex';
+    var story = w.date
+      ? ('Ganador de '+editionPhrase(w)+', celebrada el '+w.date+'.')
+      : 'Fecha y edición: por confirmar.';
+    winnerDetail.innerHTML =
+      (w.photoFull ? '<img src="'+w.photoFull+'" alt="'+w.name+'">' : '') +
+      '<span class="edtitle">'+w.name+'</span><p class="eddesc">'+story+'</p>';
+  }
+
+  /* ---------- stat count-up ---------- */
+  function formatES(n){ return n.toLocaleString('es-ES'); }
+  var counted = false;
+  function runCount(){
+    if(counted) return; counted = true;
+    document.querySelectorAll('.num[data-count]').forEach(function(el){
+      var target = parseInt(el.getAttribute('data-count'), 10);
+      var start = performance.now(), dur = 1100;
+      function step(t){
+        var p = Math.min(1,(t-start)/dur);
+        var eased = 1 - Math.pow(1-p, 3);
+        el.textContent = formatES(Math.round(target*eased));
+        if(p<1) requestAnimationFrame(step); else el.textContent = formatES(target);
+      }
+      requestAnimationFrame(step);
+    });
+  }
+  document.querySelectorAll('.num[data-count]').forEach(function(el){
+    el.textContent = formatES(parseInt(el.getAttribute('data-count'),10));
+  });
+
+  /* ---------- scroll reveal (cosmetic only, content already visible) ---------- */
+  var io = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        if(entry.target.id === 'datos') runCount();
+        io.unobserve(entry.target);
+      }
+    });
+  }, {threshold:.25}) : null;
+  if(io){ document.querySelectorAll('.section').forEach(function(s){ io.observe(s); }); }
+  else { runCount(); }
+
+  /* ---------- bar chart ---------- */
+  var votes = [1517,1675,1448,651,1004,982,1860];
+  var peak = Math.max.apply(null, votes);
+  var svgNS = 'http://www.w3.org/2000/svg';
+  var barChart = document.getElementById('barChart');
+  var barTip = document.getElementById('barTip');
+  votes.forEach(function(v,i){
+    var h = (v/peak)*200;
+    var x = 40 + i*80, y = 260-h, w = 40;
+    var rect = document.createElementNS(svgNS,'rect');
+    rect.setAttribute('x', x); rect.setAttribute('y', y);
+    rect.setAttribute('width', w); rect.setAttribute('height', h);
+    rect.setAttribute('rx', 4);
+    rect.setAttribute('class', 'bar' + (v===peak ? ' hot' : ''));
+    rect.dataset.label = 'Concurso ' + (i+1); rect.dataset.value = v;
+    barChart.appendChild(rect);
+    var val = document.createElementNS(svgNS,'text');
+    val.setAttribute('x', x+w/2); val.setAttribute('y', y-8);
+    val.setAttribute('text-anchor','middle'); val.setAttribute('class','bar-value');
+    val.textContent = v.toLocaleString('es-ES');
+    barChart.appendChild(val);
+    var lbl = document.createElementNS(svgNS,'text');
+    lbl.setAttribute('x', x+w/2); lbl.setAttribute('y', 278);
+    lbl.setAttribute('text-anchor','middle'); lbl.setAttribute('class','bar-label');
+    lbl.textContent = 'C'+(i+1);
+    barChart.appendChild(lbl);
+    rect.addEventListener('pointerenter', function(e){ showTip(barTip, barChart, e, rect.dataset.label+': '+parseInt(rect.dataset.value).toLocaleString('es-ES')+' votos'); });
+    rect.addEventListener('pointermove', function(e){ moveTip(barTip, barChart, e); });
+    rect.addEventListener('pointerleave', function(){ hideTip(barTip); });
+  });
+
+  /* ---------- line chart dots ---------- */
+  var months = [
+    {m:'Oct 25',v:125687,x:40,y:26},{m:'Nov 25',v:88777,x:86.7,y:77.1},{m:'Dic 25',v:49727,x:133.3,y:131.1},
+    {m:'Ene 26',v:65708,x:180,y:109},{m:'Feb 26',v:21804,x:226.7,y:169.8},{m:'Mar 26',v:49347,x:273.3,y:131.7},
+    {m:'Abr 26',v:65032,x:320,y:110},{m:'May 26',v:19197,x:366.7,y:173.4},{m:'Jun 26',v:78129,x:413.3,y:91.8},
+    {m:'Jul 26',v:15019,x:460,y:179.2},{m:'Ago 26',v:81857,x:506.7,y:86.7},{m:'Sep 26',v:22736,x:553.3,y:168.5},
+    {m:'Oct 26',v:30546,x:600,y:157.7}
+  ];
+  var lineChart = document.getElementById('lineChart');
+  var lineTip = document.getElementById('lineTip');
+  months.forEach(function(d,i){
+    var dot = document.createElementNS(svgNS,'circle');
+    dot.setAttribute('cx', d.x); dot.setAttribute('cy', d.y); dot.setAttribute('r', 3.6);
+    dot.setAttribute('class','dot');
+    lineChart.appendChild(dot);
+    if(i===0 || i===months.length-1 || i%3===0){
+      var lbl = document.createElementNS(svgNS,'text');
+      lbl.setAttribute('x', d.x); lbl.setAttribute('y', 216);
+      lbl.setAttribute('text-anchor','middle'); lbl.setAttribute('class','axis-label');
+      lbl.textContent = d.m;
+      lineChart.appendChild(lbl);
+    }
+    dot.addEventListener('pointerenter', function(e){ dot.classList.add('active'); showTip(lineTip, lineChart, e, d.m+': '+d.v.toLocaleString('es-ES')+' visualizaciones'); });
+    dot.addEventListener('pointermove', function(e){ moveTip(lineTip, lineChart, e); });
+    dot.addEventListener('pointerleave', function(){ dot.classList.remove('active'); hideTip(lineTip); });
+  });
+
+  function svgPoint(svg, evt){
+    var r = svg.getBoundingClientRect();
+    var vb = svg.viewBox.baseVal;
+    var x = (evt.clientX - r.left) / r.width * vb.width;
+    var y = (evt.clientY - r.top) / r.height * vb.height;
+    return {x:x,y:y, px: evt.clientX - r.left, py: evt.clientY - r.top};
+  }
+  function showTip(tip, svg, evt, text){
+    tip.textContent = text; tip.classList.add('show'); moveTip(tip, svg, evt);
+  }
+  function moveTip(tip, svg, evt){
+    var p = svgPoint(svg, evt);
+    tip.style.left = p.px + 'px';
+    tip.style.top = p.py + 'px';
+  }
+  function hideTip(tip){ tip.classList.remove('show'); }
+
+  /* ---------- identity flip ---------- */
+  var identityStage = document.getElementById('identityStage');
+  identityStage.addEventListener('click', function(){
+    identityStage.classList.toggle('flip');
+  });
+
+  /* ---------- swatch copy ---------- */
+  document.querySelectorAll('.swatch.copyable').forEach(function(sw){
+    sw.addEventListener('click', function(){
+      var hex = sw.getAttribute('data-hex');
+      function done(){ sw.classList.add('copied'); setTimeout(function(){ sw.classList.remove('copied'); }, 1200); }
+      try{
+        navigator.clipboard.writeText(hex).then(done).catch(function(){
+          var ta=document.createElement('textarea'); ta.value=hex; document.body.appendChild(ta);
+          ta.select(); try{document.execCommand('copy');}catch(e){} document.body.removeChild(ta); done();
+        });
+      }catch(e){ done(); }
+    });
+  });
+
+})();
+</script>
